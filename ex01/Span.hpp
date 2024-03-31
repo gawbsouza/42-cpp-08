@@ -6,7 +6,7 @@
 /*   By: gasouza <gasouza@student.42sp.org.br >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 18:55:26 by gasouza           #+#    #+#             */
-/*   Updated: 2024/03/25 21:30:18 by gasouza          ###   ########.fr       */
+/*   Updated: 2024/03/31 13:03:10 by gasouza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,17 @@ class Span
     
 private:
 
-    std::vector<int>    _numbers;
-    int                 _sizeLimit;
+    std::vector<int>    _content;
+    unsigned int        _spanSize;
     
 public:
 
     Span( void );
-    Span( int n );
+    Span( unsigned int n );
     Span( const Span & ref );
     ~Span( void );
+
+    static unsigned int MIN_ELEMENTS;
 
     void    addNumber( int n );
     int     shortestSpan( void );
@@ -38,8 +40,8 @@ public:
     template < typename T >
     void addNumbers( T begin, T end )
     {
-        this->_sizeLimit = std::distance(begin, end);
-        this->_numbers.clear();
+        this->_spanSize = std::distance(begin, end);
+        this->_content.clear();
         
         while (begin != end) {
             this->addNumber(*begin);

@@ -6,7 +6,7 @@
 /*   By: gasouza <gasouza@student.42sp.org.br >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 18:55:14 by gasouza           #+#    #+#             */
-/*   Updated: 2024/03/25 21:22:16 by gasouza          ###   ########.fr       */
+/*   Updated: 2024/03/31 13:08:42 by gasouza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 #include <algorithm>
 #include <climits>
 
-Span::Span( void ): _sizeLimit(0) {}
+unsigned int Span::MIN_ELEMENTS = 2;
 
-Span::Span( int n ): _sizeLimit(n) {}
+Span::Span( void ): _spanSize(0) {}
+
+Span::Span( unsigned int n ): _spanSize(n) {}
 
 Span::Span( const Span & ref )
 {
@@ -25,25 +27,25 @@ Span::Span( const Span & ref )
 
 Span::~Span( void )
 {
-    this->_numbers.clear();
+    this->_content.clear();
 }
 
-void    Span::addNumber( int n )
+void Span::addNumber( int n )
 {
-    if (this->_numbers.size() >= static_cast<size_t>(this->_sizeLimit)) {
+    if (this->_content.size() >= this->_spanSize) {
         throw ElementsLimitReachedException();
     }
 
-    this->_numbers.push_back(n);
+    this->_content.push_back(n);
 }
 
-int     Span::shortestSpan( void )
+int Span::shortestSpan( void )
 {
-    if (this->_numbers.size() < 2) {
+    if (this->_content.size() < MIN_ELEMENTS) {
         throw MinimumElementsRequiredException();
     }
 
-    std::vector<int> copyVec(this->_numbers);
+    std::vector<int> copyVec(this->_content);
     int minSpan = INT_MAX;
 
     std::sort(copyVec.begin(), copyVec.end());
@@ -66,13 +68,13 @@ int     Span::shortestSpan( void )
     return (minSpan != INT_MAX)? minSpan : 0;
 }
 
-int     Span::longestSpan( void )
+int Span::longestSpan( void )
 {
-    if (this->_numbers.size() < 2) {
+    if (this->_content.size() < 2) {
         throw MinimumElementsRequiredException();
     }
 
-    std::vector<int> copyVec(this->_numbers);
+    std::vector<int> copyVec(this->_content);
     int maxSpan = INT_MIN;
 
     std::sort(copyVec.begin(), copyVec.end());
@@ -99,8 +101,9 @@ int     Span::longestSpan( void )
 Span &  Span::operator=( const Span & ref )
 {
     if (this != &ref) {
-        this->_numbers = ref._numbers;
-        this->_sizeLimit = ref._sizeLimit;
+        this->_content.clear();
+        this->_content = ref._content;
+        this->_spanSize = ref._spanSize;
     }
     
     return *this;

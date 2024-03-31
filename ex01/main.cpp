@@ -6,7 +6,7 @@
 /*   By: gasouza <gasouza@student.42sp.org.br >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 19:44:33 by gasouza           #+#    #+#             */
-/*   Updated: 2024/03/25 21:24:44 by gasouza          ###   ########.fr       */
+/*   Updated: 2024/03/31 13:05:32 by gasouza          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,9 +143,6 @@ int main()
     bigAmountTest();
     minimumElementsTest();
     iteratorTest();
-
-    // TODO: adiconar metodo que recebe iterator
-    // TODO: adicionar testes
 
     return 0;
 }
